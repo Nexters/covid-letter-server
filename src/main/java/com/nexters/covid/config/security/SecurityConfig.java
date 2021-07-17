@@ -15,6 +15,9 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.AuthenticationEntryPoint;
+import org.springframework.security.web.access.AccessDeniedHandler;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
@@ -37,7 +40,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
           .headers().frameOptions().disable()
         .and()
           .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider),
-            UsernamePasswordAuthenticationFilter.class);
+            UsernamePasswordAuthenticationFilter.class)
+        .exceptionHandling()
+          .authenticationEntryPoint(authenticationEntryPoint());
   }
 
   @Override
@@ -51,7 +56,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
           , "/configuration/ui"
           , "/configuration/security"
           , "/webjars/**"
-          ,"/login");
+          , "/login"
+          , "/redirect");
       web.ignoring().requestMatchers(PathRequest.toStaticResources().atCommonLocations());
       web.ignoring().requestMatchers(PathRequest.toH2Console());
   }
@@ -67,5 +73,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     return PasswordEncoderFactories.createDelegatingPasswordEncoder();
   }
 
-
+  @Bean
+  public AuthenticationEntryPoint authenticationEntryPoint() {
+    return new CustomAuthenticationEntryPoint();
+  }
 }
