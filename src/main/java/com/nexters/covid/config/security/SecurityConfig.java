@@ -1,4 +1,4 @@
-package com.nexters.covid.config;
+package com.nexters.covid.config.security;
 
 import com.nexters.covid.user.filter.JwtAuthenticationFilter;
 import com.nexters.covid.user.filter.JwtTokenProvider;
