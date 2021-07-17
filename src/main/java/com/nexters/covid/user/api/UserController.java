@@ -15,8 +15,9 @@ public class UserController {
   private final UserService userService;
 
   @PostMapping("/login")
-  public BaseResponse login(LoginRequest loginRequest) {
+  public BaseResponse<LoginResponse> login(LoginRequest loginRequest) {
     LoginResponse user = userService.login(loginRequest);
     return new BaseResponse<>(200, 0, "", user);
   }
+
 }
