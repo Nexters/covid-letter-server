@@ -1,7 +1,8 @@
 package com.nexters.covid.config.security;
 
-import com.nexters.covid.user.filter.JwtAuthenticationFilter;
-import com.nexters.covid.user.filter.JwtTokenProvider;
+import com.fasterxml.jackson.databind.util.JSONPObject;
+import java.time.LocalDateTime;
+import javax.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
@@ -65,4 +66,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
   public PasswordEncoder passwordEncoder() {
     return PasswordEncoderFactories.createDelegatingPasswordEncoder();
   }
+
+
 }
