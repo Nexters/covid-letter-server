@@ -7,7 +7,6 @@ import com.nexters.covid.user.domain.UserRepository;
 import com.nexters.covid.config.security.JwtTokenProvider;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,7 +16,6 @@ public class UserService {
 
   private final UserRepository userRepository;
   private final JwtTokenProvider jwtTokenProvider;
-  private final PasswordEncoder passwordEncoder;
 
   @Transactional
   public Optional<User> findByIdentifier(LoginRequest loginRequest) {
@@ -26,13 +24,8 @@ public class UserService {
 
   @Transactional
   public User findUser(LoginRequest loginRequest) {
-    String identifier = encodeIdentifier(loginRequest.getIdentifier());
     return findByIdentifier(loginRequest)
-        .orElseGet(() -> userRepository.save(new User(loginRequest.getEmail(), identifier)));
-  }
-
-  private String encodeIdentifier(String identifier) {
-    return passwordEncoder.encode(identifier);
+        .orElseGet(() -> userRepository.save(new User(loginRequest)));
   }
 
   @Transactional

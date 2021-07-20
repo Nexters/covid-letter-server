@@ -1,6 +1,7 @@
 package com.nexters.covid.user.domain;
 
 import com.nexters.covid.base.BaseEntity;
+import com.nexters.covid.user.api.dto.LoginRequest;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -17,11 +18,14 @@ public class User extends BaseEntity {
 
   private String email;
 
+  private String name;
+
   private String identifier;
 
-  public User(String email, String identifier) {
-    this.email = email;
-    this.identifier = identifier;
+  public User(LoginRequest loginRequest) {
+    this.email = loginRequest.getEmail();
+    this.name = loginRequest.getName();
+    this.identifier = loginRequest.getIdentifier();
   }
 
   public User() {
