@@ -1,4 +1,4 @@
-package com.nexters.covid.config;
+package com.nexters.covid.config.swagger;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
