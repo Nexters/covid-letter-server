@@ -11,8 +11,8 @@ import lombok.Setter;
 public class UserResponse {
 
   private Long id;
-
   private String email;
+  private String name;
 
   protected UserResponse() {}
 
