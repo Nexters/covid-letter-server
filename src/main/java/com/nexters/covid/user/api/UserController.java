@@ -19,5 +19,4 @@ public class UserController {
     LoginResponse user = userService.login(loginRequest);
     return new BaseResponse<>(200, 0, "", user);
   }
-
 }

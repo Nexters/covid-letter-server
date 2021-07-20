@@ -2,6 +2,7 @@ package com.nexters.covid.user.domain;
 
 import com.nexters.covid.base.BaseEntity;
 import com.nexters.covid.user.api.dto.LoginRequest;
+import java.time.LocalDateTime;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -30,5 +31,9 @@ public class User extends BaseEntity {
 
   public User() {
 
+  }
+
+  public void updateLastLoginTime() {
+    this.updateDate = LocalDateTime.now();
   }
 }

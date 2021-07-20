@@ -25,7 +25,10 @@ public class UserService {
   @Transactional
   public User findUser(LoginRequest loginRequest) {
     return findByIdentifier(loginRequest)
-        .orElseGet(() -> userRepository.save(new User(loginRequest)));
+        .map(user -> {
+          user.updateLastLoginTime();
+          return user;
+        }).orElseGet(() -> userRepository.save(new User(loginRequest)));
   }
 
   @Transactional
