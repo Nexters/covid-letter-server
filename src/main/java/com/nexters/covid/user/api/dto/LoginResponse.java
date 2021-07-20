@@ -1,16 +1,18 @@
 package com.nexters.covid.user.api.dto;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
-@AllArgsConstructor
-@NoArgsConstructor
 public class LoginResponse {
 
-  // TODO: 클라이언트에서 받을 정보들 정하기
+  // TODO: 토큰 만료 시간 설정 파일로 빼기
   private String accessToken;
+  private long tokenExpirationTime;
+
+  public LoginResponse(String accessToken) {
+    this.accessToken = accessToken;
+    this.tokenExpirationTime = 60 * 60 * 12;
+  }
 }
