@@ -23,11 +23,16 @@ public class UserService {
     return userRepository.findUserByIdentifier(loginRequest.getIdentifier());
   }
 
-  private User findUser(LoginRequest loginRequest) {
+  @Transactional
+  public User findUser(LoginRequest loginRequest) {
     return findByIdentifier(loginRequest)
-        .orElseGet(() -> userRepository.save(new User(loginRequest)));
+        .map(user -> {
+          user.updateLastLoginTime();
+          return user;
+        }).orElseGet(() -> userRepository.save(new User(loginRequest)));
   }
 
+  @Transactional
   public LoginResponse login(LoginRequest loginRequest) {
     return new LoginResponse(jwtTokenProvider.createToken(findUser(loginRequest)));
   }

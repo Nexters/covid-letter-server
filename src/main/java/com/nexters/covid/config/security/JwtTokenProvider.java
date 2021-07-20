@@ -23,7 +23,7 @@ public class JwtTokenProvider {
   private final JwtTokenService userService;
 
   private String secretKey = "secretKey";
-  private long tokenValidTime = 30 * 60 * 1000L;
+  private long tokenExpirationTime = 60 * 60 * 12 * 1000L;
 
   @PostConstruct
   protected void init() {
@@ -38,7 +38,7 @@ public class JwtTokenProvider {
     return Jwts.builder()
         .setClaims(claims)
         .setIssuedAt(now)
-        .setExpiration(new Date(now.getTime() + tokenValidTime))
+        .setExpiration(new Date(now.getTime() + tokenExpirationTime))
         .signWith(SignatureAlgorithm.HS256, secretKey)
         .compact();
   }
