@@ -3,7 +3,6 @@ package com.nexters.covid.user.domain;
 import com.nexters.covid.base.BaseEntity;
 import com.nexters.covid.letter.domain.Letter;
 import com.nexters.covid.letter.domain.Letters;
-import com.nexters.covid.letter.domain.State;
 import com.nexters.covid.user.api.dto.LoginRequest;
 import java.time.LocalDateTime;
 import java.util.List;
