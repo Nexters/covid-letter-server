@@ -2,6 +2,9 @@ spring:
   datasource:
     driver-class-name: org.h2.Driver
     url: jdbc:h2:mem:testdb
+    data: classpath:data-h2.sql
   h2:
     console:
       enabled: true
+  jpa:
+    defer-datasource-initialization: true
