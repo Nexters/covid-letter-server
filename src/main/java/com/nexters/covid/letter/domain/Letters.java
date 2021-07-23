@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 public class Letters {
 
   @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-  private List<Letter> letters = new ArrayList<>();
+  private final List<Letter> letters = new ArrayList<>();
 
   public List<Letter> letters() {
     return Collections.unmodifiableList(letters);
