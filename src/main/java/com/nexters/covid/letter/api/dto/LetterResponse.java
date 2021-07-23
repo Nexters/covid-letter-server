@@ -3,7 +3,6 @@ package com.nexters.covid.letter.api.dto;
 import static org.springframework.beans.BeanUtils.copyProperties;
 
 import com.nexters.covid.letter.domain.Letter;
-import com.nexters.covid.letter.domain.State;
 import com.nexters.covid.user.domain.User;
 import java.util.List;
 import lombok.Getter;
