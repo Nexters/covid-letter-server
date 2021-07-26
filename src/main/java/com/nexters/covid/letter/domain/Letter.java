@@ -35,6 +35,8 @@ public class Letter extends BaseEntity {
 
   private String contents;
 
+  private String email;
+
   @Enumerated(EnumType.STRING)
   private State state;
 
