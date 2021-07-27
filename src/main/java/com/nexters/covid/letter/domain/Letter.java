@@ -40,6 +40,9 @@ public class Letter extends BaseEntity {
   @Enumerated(EnumType.STRING)
   private State state;
 
+  @Enumerated(EnumType.STRING)
+  private Sticker sticker;
+
   @Column(name = "option")
   @Enumerated(EnumType.STRING)
   private SendOption option;
