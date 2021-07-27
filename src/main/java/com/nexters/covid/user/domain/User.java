@@ -1,8 +1,12 @@
 package com.nexters.covid.user.domain;
 
 import com.nexters.covid.base.BaseEntity;
+import com.nexters.covid.letter.domain.Letter;
+import com.nexters.covid.letter.domain.Letters;
 import com.nexters.covid.user.api.dto.LoginRequest;
 import java.time.LocalDateTime;
+import java.util.List;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -23,6 +27,9 @@ public class User extends BaseEntity {
 
   private String identifier;
 
+  @Embedded
+  private Letters letters;
+
   public User(LoginRequest loginRequest) {
     this.email = loginRequest.getEmail();
     this.name = loginRequest.getName();
@@ -35,5 +42,9 @@ public class User extends BaseEntity {
 
   public void updateLastLoginTime() {
     this.updateDate = LocalDateTime.now();
+  }
+
+  public List<Letter> letters() {
+    return letters.letters();
   }
 }

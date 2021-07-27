@@ -1,5 +1,6 @@
 package com.nexters.covid.user.service;
 
+import com.nexters.covid.letter.api.dto.LetterResponse;
 import com.nexters.covid.user.api.dto.LoginRequest;
 import com.nexters.covid.user.api.dto.LoginResponse;
 import com.nexters.covid.user.api.dto.UserResponse;
@@ -43,5 +44,11 @@ public class UserService {
     User user = userRepository.findUserByEmail(email)
         .orElseThrow(() -> new RuntimeException("사용자가 없습니다."));
     return new UserResponse(user);
+  }
+
+  @Transactional(readOnly = true)
+  public LetterResponse letters(String email) {
+    User user = userRepository.findUserAndLettersByEmail(email);
+    return new LetterResponse(user);
   }
 }

@@ -1,6 +1,7 @@
 package com.nexters.covid.user.api;
 
 import com.nexters.covid.base.BaseResponse;
+import com.nexters.covid.letter.api.dto.LetterResponse;
 import com.nexters.covid.user.api.dto.LoginRequest;
 import com.nexters.covid.user.api.dto.LoginResponse;
 import com.nexters.covid.user.api.dto.UserResponse;
@@ -27,5 +28,11 @@ public class UserController {
   public BaseResponse<UserResponse> findUser(Authentication authentication) {
     UserResponse user = userService.findUserEmail(authentication.getName());
     return new BaseResponse<>(200, 0, "", user);
+  }
+
+  @GetMapping("/user/letter")
+  public BaseResponse<LetterResponse> letters(Authentication authentication) {
+    LetterResponse letters = userService.letters(authentication.getName());;
+    return new BaseResponse<>(200, 0, "", letters);
   }
 }
