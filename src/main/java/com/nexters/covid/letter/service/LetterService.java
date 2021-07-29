@@ -18,7 +18,7 @@ public class LetterService {
   private final SendOptionRepository sendOptionRepository;
 
   public List<OptionResponse> options() {
-    return sendOptionRepository.findAllJoinFetch()
+    return sendOptionRepository.findAll()
         .stream()
         .map(OptionResponse::new)
         .collect(Collectors.toList());
