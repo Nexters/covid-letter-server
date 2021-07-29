@@ -3,7 +3,6 @@ package com.nexters.covid.letter.domain;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.nexters.covid.base.BaseEntity;
 import com.nexters.covid.user.domain.User;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -45,7 +44,7 @@ public class Letter extends BaseEntity {
 
   private String answer;
 
-  private String questionId;
+  private Long questionId;
 
   private String encryptedId;
 }
