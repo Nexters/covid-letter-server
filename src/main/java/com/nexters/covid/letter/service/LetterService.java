@@ -4,7 +4,6 @@ import com.nexters.covid.letter.api.dto.LetterResponse;
 import com.nexters.covid.letter.api.dto.OptionResponse;
 import com.nexters.covid.letter.domain.LetterRepository;
 import com.nexters.covid.letter.domain.SendOptionRepository;
-import com.nexters.covid.user.domain.UserRepository;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
