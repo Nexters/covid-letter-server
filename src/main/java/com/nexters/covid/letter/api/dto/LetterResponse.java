@@ -3,8 +3,8 @@ package com.nexters.covid.letter.api.dto;
 import static org.springframework.beans.BeanUtils.copyProperties;
 
 import com.nexters.covid.letter.domain.Letter;
-import com.nexters.covid.user.domain.User;
-import java.util.List;
+import com.nexters.covid.letter.domain.State;
+import com.nexters.covid.letter.domain.Sticker;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,12 +12,21 @@ import lombok.Setter;
 @Setter
 public class LetterResponse {
 
-  private String name;
-  private String email;
-  private List<Letter> letters;
+  private String title;
 
-  public LetterResponse(User source) {
+  private String contents;
+
+  private String email;
+
+  private State state;
+
+  private Sticker sticker;
+
+  private Long questionId;
+
+  private String encryptedId;
+
+  public LetterResponse(Letter source) {
     copyProperties(source, this);
-    this.letters = source.letters();
   }
 }
