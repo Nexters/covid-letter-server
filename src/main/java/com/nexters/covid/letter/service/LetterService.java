@@ -17,6 +17,7 @@ public class LetterService {
   private final LetterRepository letterRepository;
   private final SendOptionRepository sendOptionRepository;
 
+  @Transactional(readOnly = true)
   public List<OptionResponse> options() {
     return sendOptionRepository.findAll()
         .stream()
