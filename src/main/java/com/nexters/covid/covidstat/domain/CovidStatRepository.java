@@ -4,7 +4,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface CovidStatRepository extends JpaRepository<CovidStat, String> {
+public interface CovidStatRepository extends JpaRepository<CovidStat, Long> {
 
 // TODO: 쿼리에 증감량 계산식 넣기
   @Query("SELECT * FROM COVID_STAT WHERE DATE IN (:today_date, :yes_date)")

@@ -13,8 +13,9 @@ public class CovidStat {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String date;
+    private Long id; 
 
+    private String date;
     private String vaccinated;
     private String confirmed;
     private String cured;
