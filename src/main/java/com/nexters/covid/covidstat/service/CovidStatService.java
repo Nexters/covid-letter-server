@@ -45,8 +45,8 @@ public class CovidStatService {
         if(covidStats.size() < 2){
             
             // 코로나 공공 api (예방접종률)
-            String serviceKey = "SJMNyeTPF3YFcz53vYHdJit0yNSj785kS%2FRDdaEIi6VSAO098xEDGOTdYxLTZJnauGNknbs54UJb3JJZIyEKOg%3D%3D";
-
+            String serviceKey = ""; 
+            
             StringBuilder urlBuilder = new StringBuilder("https://api.odcloud.kr/api/15077756/v1/vaccine-stat"); /*URL*/
             urlBuilder.append("?serviceKey=" + serviceKey);
 
