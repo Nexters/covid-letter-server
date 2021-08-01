@@ -11,20 +11,20 @@ import lombok.Setter;
 public class StatResponse {
 
   private String sended; 
-  private String sended_yet; 
+  private String sendedYet; 
 
-  private String vaccinated_today;
-  private String confirmed_today;
-  private String cured_today;
+  private String vaccinatedToday;
+  private String confirmedToday;
+  private String curedToday;
 
-  private String vaccinated_yes;
-  private String confirmed_yes;
-  private String cured_yes;
+  private String vaccinatedYes;
+  private String confirmedYes;
+  private String curedYes;
 
-  // public LetterResponse(User source) {
-  //   copyProperties(source, this);
-  //   this.letters = source.letters();
-  // }
+  public StatResponse(User source) {
+    copyProperties(source, this);
+    this.letters = source.letters();
+  }
 }
 
     

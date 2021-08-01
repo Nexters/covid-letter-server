@@ -23,7 +23,8 @@ public class CovidStatService {
 
     public StatResponse getStat() throws IOException {
 
-        StatResponse statResponse = new StatResponse(); 
+        // 1. 서비스 통계치 
+        StatResponse statResponse = letterStatRepository.findLetterStat(); 
 
         /*
             1. 서비스 통계치 겟또
@@ -34,18 +35,11 @@ public class CovidStatService {
             5. 1, 4 묶어서 리턴
         */
         
-        // 1. 서비스 통계치 
-        letterStatRepository.findLetterStat()
-        .stream()
-        .map(statResponse); 
-
         // 2. 호출일자 기준으로 코로나 테이블 조회 
-        String today_date = new SimpleDateFormat("yyyyMMdd").format(new Date()); 
-        String yes_date = new SimpleDateFormat("yyyyMMdd").format(new Date().getTime()+(1000*60*60*24*-1)); 
+        String todayDate = new SimpleDateFormat("yyyyMMdd").format(new Date()); 
+        String yesDate = new SimpleDateFormat("yyyyMMdd").format(new Date().getTime()+(1000*60*60*24*-1)); 
 
-        StatResponse statResponse = new StatResponse();
-
-        List<CovidStat> covidStats = covidStatRepository.findByTwoDate(today_date, yes_date); 
+        List<CovidStat> covidStats = covidStatRepository.findByTwoDate(todayDate, yesDate); 
 
         // 3. 데이터 없으면
         if(covidStats.size() < 2){

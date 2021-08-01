@@ -12,5 +12,5 @@ import javax.persistence.Id;
 public class LetterStat {
 
     private String sended;
-    private String sended_yet;
+    private String sendedYet;
 }
