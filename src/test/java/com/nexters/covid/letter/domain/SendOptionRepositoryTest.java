@@ -15,7 +15,7 @@ public class SendOptionRepositoryTest {
   SendOptionRepository sendOptionRepository;
 
   @Test
-  @DisplayName("[SendOption] join fetch 테스트")
+  @DisplayName("[SendOptionRepository] join fetch 테스트")
   void fetchJoinTest() {
     List<SendOption> options = sendOptionRepository.findAllJoinFetch();
 
