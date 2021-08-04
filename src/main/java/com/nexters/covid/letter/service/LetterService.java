@@ -37,7 +37,7 @@ public class LetterService {
   }
 
   @Transactional(readOnly = true)
-  public List<QuestionResponse> findQuestions(Long questionId) {
+  public List<QuestionResponse> findQuestionsByOptionId(Long questionId) {
     return questionRepository.findQuestionsBySendOptionIdEqualsOrSendOptionIdEquals(questionId, 3L)
         .stream()
         .map(QuestionResponse::new)

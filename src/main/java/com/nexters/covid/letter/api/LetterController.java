@@ -31,8 +31,8 @@ public class LetterController {
   }
 
   @GetMapping("/letters/options/{optionId}")
-  public BaseResponse<List<QuestionResponse>> questions(@PathVariable("optionId") Long optionId) {
-    List<QuestionResponse> questions = letterService.findQuestions(optionId);
+  public BaseResponse<List<QuestionResponse>> findQuestionsByOptionId(@PathVariable("optionId") Long optionId) {
+    List<QuestionResponse> questions = letterService.findQuestionsByOptionId(optionId);
     return new BaseResponse<>(200, 0, "", questions);
   }
 }
