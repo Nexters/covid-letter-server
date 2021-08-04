@@ -5,6 +5,7 @@ import static org.springframework.beans.BeanUtils.copyProperties;
 import com.nexters.covid.letter.domain.Letter;
 import com.nexters.covid.letter.domain.State;
 import com.nexters.covid.letter.domain.Sticker;
+import java.time.LocalDateTime;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -25,6 +26,8 @@ public class LetterResponse {
   private Long questionId;
 
   private String encryptedId;
+
+  private LocalDateTime createdDate;
 
   public LetterResponse(Letter source) {
     copyProperties(source, this);
