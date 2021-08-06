@@ -50,6 +50,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
           , "/configuration/security"
           , "/webjars/**"
           , "/login"
+          , "/letters/{\\d+}"
           , "/redirect");
       web.ignoring().requestMatchers(PathRequest.toStaticResources().atCommonLocations());
       web.ignoring().requestMatchers(PathRequest.toH2Console());
