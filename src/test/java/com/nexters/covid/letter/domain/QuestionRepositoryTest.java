@@ -18,7 +18,9 @@ public class QuestionRepositoryTest {
   @Test
   @DisplayName("[QuestionRepository] 선택한 옵션에 따른 질문과 공통 질문 조회 테스트")
   void findQuestionByOptionTest() {
-    List<Question> questions = questionRepository.findQuestionsBySendOptionIdEqualsOrSendOptionIdEquals(1L, 3L);
+    long normalSendOptionId = 1L;
+    long commonSendOptionId = 3L;
+    List<Question> questions = questionRepository.findQuestionsBySendOptionIdEqualsOrSendOptionIdEquals(normalSendOptionId, commonSendOptionId);
 
     List<Long> sendOptionIds = questions.stream()
         .map(q -> q.getSendOption().getId())
