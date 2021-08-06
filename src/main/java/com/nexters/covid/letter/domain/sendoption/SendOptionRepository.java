@@ -1,4 +1,4 @@
-package com.nexters.covid.letter.domain;
+package com.nexters.covid.letter.domain.sendoption;
 
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;

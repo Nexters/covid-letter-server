@@ -1,5 +1,6 @@
-package com.nexters.covid.letter.domain;
+package com.nexters.covid.letter.domain.sendoption;
 
+import com.nexters.covid.letter.domain.question.Question;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.CascadeType;

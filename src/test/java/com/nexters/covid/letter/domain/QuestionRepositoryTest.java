@@ -2,6 +2,8 @@ package com.nexters.covid.letter.domain;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import com.nexters.covid.letter.domain.question.Question;
+import com.nexters.covid.letter.domain.question.QuestionRepository;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.junit.jupiter.api.DisplayName;

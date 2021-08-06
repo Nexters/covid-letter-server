@@ -1,6 +1,7 @@
-package com.nexters.covid.letter.domain;
+package com.nexters.covid.letter.domain.question;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.nexters.covid.letter.domain.sendoption.SendOption;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
