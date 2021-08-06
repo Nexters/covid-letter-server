@@ -30,7 +30,7 @@ public class LetterController {
     return new BaseResponse<>(200, 0, "", options);
   }
 
-  @GetMapping("/letters/options/{optionId}")
+  @GetMapping("/letters/options/{optionId}/questions")
   public BaseResponse<List<QuestionResponse>> findQuestionsByOptionId(@PathVariable("optionId") Long optionId) {
     List<QuestionResponse> questions = letterService.findQuestionsByOptionId(optionId);
     return new BaseResponse<>(200, 0, "", questions);
