@@ -1,6 +1,7 @@
 package com.nexters.covid.letter.api.dto;
 
 import static org.springframework.beans.BeanUtils.copyProperties;
+import static org.apache.commons.codec.binary.Base64.decodeBase64;
 
 import com.nexters.covid.letter.domain.Letter;
 import com.nexters.covid.letter.domain.State;
@@ -31,5 +32,10 @@ public class LetterResponse {
 
   public LetterResponse(Letter source) {
     copyProperties(source, this);
+    this.contents = decodeContents(source.getContents());
+  }
+
+  private String decodeContents(String contents) {
+    return new String(decodeBase64(contents));
   }
 }

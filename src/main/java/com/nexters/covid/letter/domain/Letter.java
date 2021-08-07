@@ -1,5 +1,7 @@
 package com.nexters.covid.letter.domain;
 
+import static org.apache.commons.codec.binary.Base64.encodeBase64String;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.nexters.covid.base.BaseEntity;
 import com.nexters.covid.letter.api.dto.LetterRequest;
@@ -52,7 +54,7 @@ public class Letter extends BaseEntity {
     this.user = user;
     this.letterTo = request.getEmail();
     this.title = request.getTitle();
-    this.contents = request.getContents();
+    this.contents = encodeContents(request.getContents());
     this.email = user.getEmail();
     this.state = State.PENDING;
     this.sticker = request.getSticker();
@@ -62,5 +64,9 @@ public class Letter extends BaseEntity {
 
   private String generateEncryptedId() {
     return UUID.randomUUID().toString();
+  }
+
+  private String encodeContents(String contents) {
+    return encodeBase64String(contents.getBytes());
   }
 }
