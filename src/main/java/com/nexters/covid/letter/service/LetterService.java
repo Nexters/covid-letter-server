@@ -1,5 +1,6 @@
 package com.nexters.covid.letter.service;
 
+import com.nexters.covid.base.Constant;
 import com.nexters.covid.letter.api.dto.LetterRequest;
 import com.nexters.covid.letter.api.dto.LetterResponse;
 import com.nexters.covid.letter.api.dto.OptionResponse;
@@ -19,8 +20,6 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 @Service
 public class LetterService {
-
-  private static final Long COMMON_SEND_OPTION_ID = 3L;
 
   private final LetterRepository letterRepository;
   private final SendOptionRepository sendOptionRepository;
@@ -46,7 +45,7 @@ public class LetterService {
   @Transactional(readOnly = true)
   public List<QuestionResponse> findQuestionsByOptionId(Long optionId) {
     return questionRepository
-        .findQuestionsBySendOptionIdEqualsOrSendOptionIdEquals(optionId, COMMON_SEND_OPTION_ID)
+        .findQuestionsBySendOptionIdEqualsOrSendOptionIdEquals(optionId, Constant.COMMON_SEND_OPTION_ID)
         .stream()
         .map(QuestionResponse::new)
         .collect(Collectors.toList());
