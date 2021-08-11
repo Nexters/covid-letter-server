@@ -27,6 +27,10 @@ public class Question {
 
   private String text;
 
+  public Question(Long id, String text) {
+    this.id = id;
+    this.text = text;
+  }
   public boolean isMatch(Long questionId) {
     return id.equals(questionId);
   }
