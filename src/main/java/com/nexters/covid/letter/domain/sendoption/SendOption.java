@@ -31,7 +31,12 @@ public class SendOption {
   @OneToMany(mappedBy = "sendOption", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
   private final List<Question> questions = new ArrayList<>();
 
-  public List<Question> questions() {
-    return questions;
+  public boolean isMatchQuestion(Long questionId) {
+    for (Question question : questions) {
+      if (question.isMatch(questionId)) {
+        return true;
+      }
+    }
+    return false;
   }
 }

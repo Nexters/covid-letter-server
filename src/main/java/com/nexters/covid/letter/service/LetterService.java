@@ -8,6 +8,7 @@ import com.nexters.covid.letter.api.dto.QuestionResponse;
 import com.nexters.covid.letter.domain.Letter;
 import com.nexters.covid.letter.domain.LetterRepository;
 import com.nexters.covid.letter.domain.question.QuestionRepository;
+import com.nexters.covid.letter.domain.sendoption.SendOption;
 import com.nexters.covid.letter.domain.sendoption.SendOptionRepository;
 import com.nexters.covid.user.domain.User;
 import com.nexters.covid.user.domain.UserRepository;
@@ -30,8 +31,19 @@ public class LetterService {
   public List<LetterResponse> findLettersByEmail(String email) {
     return letterRepository.findLettersByEmailOrderByCreatedDateDesc(email)
         .stream()
-        .map(LetterResponse::new)
+        .map(l -> new LetterResponse(l, findSendOptionByQuestionId(l.getQuestionId())))
         .collect(Collectors.toList());
+  }
+
+  @Transactional(readOnly = true)
+  public String findSendOptionByQuestionId(Long questionId) {
+    List<SendOption> options = sendOptionRepository.findAllJoinFetch();
+
+    return options.stream()
+        .filter(o -> o.isMatchQuestion(questionId))
+        .map(SendOption::getText)
+        .findAny()
+        .orElseThrow(() -> new IllegalArgumentException("발송 옵션이 존재하지 않습니다."));
   }
 
   @Transactional(readOnly = true)
@@ -45,7 +57,8 @@ public class LetterService {
   @Transactional(readOnly = true)
   public List<QuestionResponse> findQuestionsByOptionId(Long optionId) {
     return questionRepository
-        .findQuestionsBySendOptionIdEqualsOrSendOptionIdEquals(optionId, Constant.COMMON_SEND_OPTION_ID)
+        .findQuestionsBySendOptionIdEqualsOrSendOptionIdEquals(optionId,
+            Constant.COMMON_SEND_OPTION_ID)
         .stream()
         .map(QuestionResponse::new)
         .collect(Collectors.toList());

@@ -28,11 +28,18 @@ public class LetterResponse {
 
   private String encryptedId;
 
+  private String sendOptionText;
+
   private LocalDateTime createdDate;
 
   public LetterResponse(Letter source) {
     copyProperties(source, this);
     this.contents = decodeContents(source.getContents());
+  }
+
+  public LetterResponse(Letter source, String sendOptionText) {
+    this(source);
+    this.sendOptionText = sendOptionText;
   }
 
   private String decodeContents(String contents) {

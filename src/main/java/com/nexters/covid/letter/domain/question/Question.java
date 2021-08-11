@@ -26,4 +26,8 @@ public class Question {
   private SendOption sendOption;
 
   private String text;
+
+  public boolean isMatch(Long questionId) {
+    return id.equals(questionId);
+  }
 }
