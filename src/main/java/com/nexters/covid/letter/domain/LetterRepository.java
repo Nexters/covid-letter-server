@@ -6,4 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface LetterRepository extends JpaRepository<Letter, Long> {
 
   List<Letter> findLettersByEmail(String email);
+
+  List<Letter> findLetterByStatus (State status);
 }
