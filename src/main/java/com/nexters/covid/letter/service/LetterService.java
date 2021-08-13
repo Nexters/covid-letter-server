@@ -56,9 +56,7 @@ public class LetterService {
 
   @Transactional(readOnly = true)
   public List<QuestionResponse> findQuestionsByOptionId(Long optionId) {
-    return questionRepository
-        .findQuestionsBySendOptionIdEqualsOrSendOptionIdEquals(optionId,
-            Constant.COMMON_SEND_OPTION_ID)
+    return questionRepository.findQuestionsBySendOptionIdEqualsOrSendOptionIdEquals(optionId, Constant.COMMON_SEND_OPTION_ID)
         .stream()
         .map(QuestionResponse::new)
         .collect(Collectors.toList());
