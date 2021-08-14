@@ -1,7 +1,6 @@
 package com.nexters.covid.stat.service;
 
 
-import com.nexters.covid.config.security.CovidApiServicekey;
 import com.nexters.covid.letter.domain.Letter;
 import com.nexters.covid.letter.domain.LetterRepository;
 import com.nexters.covid.letter.domain.State;
@@ -13,6 +12,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -36,13 +36,16 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CovidStatService {
 
+    @Value("${api.secret.key}")
+    private String serviceKey;
+
     private final CovidStatRepository covidStatRepository;
     private final LetterRepository letterRepository;
 
     public CovidStatResponse readTodayStat() throws ParseException, ParserConfigurationException, IOException, SAXException {
         CovidStatResponse covidStatResponse = new CovidStatResponse();
 
-        List<CovidStat> stat = this.readStats();
+        List<CovidStat> stat = readStats();
 
         if(stat.size() > 1){
             String date = stat.get(0).getDate();
@@ -62,10 +65,12 @@ public class CovidStatService {
             covidStatResponse.setCuredPer(Integer.toString(curedPer));
             covidStatResponse.setVaccinatedPer(Integer.toString(vaccinatedPer));
             covidStatResponse.setConfirmedPer(Integer.toString(confirmedPer));
-        }else this.createStat(covidStatResponse);
+        }else {
+            createStat(covidStatResponse);
+        }
 
-        covidStatResponse.setLettersPending(this.readLetters(State.PENDING).size());
-        covidStatResponse.setLettersSend(this.readLetters(State.SEND).size());
+        covidStatResponse.setLettersPending(readLetters(State.PENDING).size());
+        covidStatResponse.setLettersSend(readLetters(State.SEND).size());
 
         return covidStatResponse;
     }
@@ -90,7 +95,6 @@ public class CovidStatService {
 
     public CovidStatResponse createStat(CovidStatResponse covidStatResponse) throws ParseException, ParserConfigurationException, IOException, SAXException {
 
-        String serviceKey = new CovidApiServicekey().getServiceKey();
         Date today = new Date();
         Date yesterday = new Date(today.getTime()+(1000*60*60*24*-1));
 
@@ -177,15 +181,16 @@ public class CovidStatService {
     }
 
     public List<Letter> readLetters(State state){
-        return letterRepository.findLetterByStatus(state);
+        return letterRepository.findLetterByState(state);
     }
 
     // Util 함수
     private String getTagValue(String tag, Element eElement) {
         NodeList nlList = eElement.getElementsByTagName(tag).item(0).getChildNodes();
         Node nValue = nlList.item(0);
-        if(nValue == null)
+        if(nValue == null){
             return null;
+        }
         return nValue.getNodeValue();
     }
 }

@@ -1,6 +1,10 @@
 package com.nexters.covid.stat.api.dto;
 
+import com.nexters.covid.letter.domain.Letter;
+import com.nexters.covid.stat.domain.CovidStat;
 import lombok.Data;
+
+import static org.springframework.beans.BeanUtils.copyProperties;
 
 @Data
 public class CovidStatResponse {
@@ -16,4 +20,5 @@ public class CovidStatResponse {
 
     private int lettersSend;
     private int lettersPending;
+
 }

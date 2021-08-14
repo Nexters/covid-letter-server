@@ -9,3 +9,6 @@ spring:
   jpa:
     defer-datasource-initialization: true
     show-sql: true
+api:
+  secret:
+    key:
