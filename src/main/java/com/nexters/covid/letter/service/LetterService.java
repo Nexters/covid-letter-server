@@ -7,6 +7,7 @@ import com.nexters.covid.letter.api.dto.OptionResponse;
 import com.nexters.covid.letter.api.dto.QuestionResponse;
 import com.nexters.covid.letter.domain.Letter;
 import com.nexters.covid.letter.domain.LetterRepository;
+import com.nexters.covid.letter.domain.question.Question;
 import com.nexters.covid.letter.domain.question.QuestionRepository;
 import com.nexters.covid.letter.domain.sendoption.SendOption;
 import com.nexters.covid.letter.domain.sendoption.SendOptionRepository;
@@ -76,6 +77,9 @@ public class LetterService {
   public LetterResponse findLetterByEncryptedId(String encryptedId) {
     Letter letter = letterRepository.findLetterByEncryptedId(encryptedId)
         .orElseThrow(() -> new IllegalArgumentException("해당 ID의 편지가 없습니다."));
-    return new LetterResponse(letter);
+
+    Question question = questionRepository.findQuestionById(letter.getQuestionId());
+
+    return new LetterResponse(letter, question);
   }
 }
