@@ -2,6 +2,8 @@ package com.nexters.covid.letter.domain;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import com.nexters.covid.letter.domain.sendoption.SendOption;
+import com.nexters.covid.letter.domain.sendoption.SendOptionRepository;
 import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -19,6 +21,6 @@ public class SendOptionRepositoryTest {
   void fetchJoinTest() {
     List<SendOption> options = sendOptionRepository.findAllJoinFetch();
 
-    assertThat(options.size()).isEqualTo(5);
+    assertThat(options.size()).isEqualTo(8);
   }
 }

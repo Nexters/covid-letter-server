@@ -1,8 +1,12 @@
 package com.nexters.covid.letter.domain;
 
+import static org.apache.commons.codec.binary.Base64.encodeBase64String;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.nexters.covid.base.BaseEntity;
+import com.nexters.covid.letter.api.dto.LetterRequest;
 import com.nexters.covid.user.domain.User;
+import java.util.UUID;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -42,9 +46,27 @@ public class Letter extends BaseEntity {
   @Enumerated(EnumType.STRING)
   private Sticker sticker;
 
-  private String answer;
-
   private Long questionId;
 
   private String encryptedId;
+
+  public Letter(LetterRequest request, User user) {
+    this.user = user;
+    this.letterTo = request.getEmail();
+    this.title = request.getTitle();
+    this.contents = encodeContents(request.getContents());
+    this.email = user.getEmail();
+    this.state = State.PENDING;
+    this.sticker = request.getSticker();
+    this.questionId = request.getQuestionId();
+    this.encryptedId = generateEncryptedId();
+  }
+
+  private String generateEncryptedId() {
+    return UUID.randomUUID().toString();
+  }
+
+  private String encodeContents(String contents) {
+    return encodeBase64String(contents.getBytes());
+  }
 }

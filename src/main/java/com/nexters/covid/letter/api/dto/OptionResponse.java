@@ -2,7 +2,7 @@ package com.nexters.covid.letter.api.dto;
 
 import static org.springframework.beans.BeanUtils.copyProperties;
 
-import com.nexters.covid.letter.domain.SendOption;
+import com.nexters.covid.letter.domain.sendoption.SendOption;
 import lombok.Getter;
 import lombok.Setter;
 

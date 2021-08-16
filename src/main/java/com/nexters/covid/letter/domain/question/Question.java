@@ -1,6 +1,7 @@
-package com.nexters.covid.letter.domain;
+package com.nexters.covid.letter.domain.question;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.nexters.covid.letter.domain.sendoption.SendOption;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -25,4 +26,12 @@ public class Question {
   private SendOption sendOption;
 
   private String text;
+
+  public Question(Long id, String text) {
+    this.id = id;
+    this.text = text;
+  }
+  public boolean isMatch(Long questionId) {
+    return id.equals(questionId);
+  }
 }

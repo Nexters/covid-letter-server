@@ -1,5 +1,6 @@
-package com.nexters.covid.letter.domain;
+package com.nexters.covid.letter.domain.sendoption;
 
+import com.nexters.covid.letter.domain.question.Question;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.CascadeType;
@@ -30,7 +31,12 @@ public class SendOption {
   @OneToMany(mappedBy = "sendOption", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
   private final List<Question> questions = new ArrayList<>();
 
-  public List<Question> questions() {
-    return questions;
+  public boolean isMatchQuestion(Long questionId) {
+    for (Question question : questions) {
+      if (question.isMatch(questionId)) {
+        return true;
+      }
+    }
+    return false;
   }
 }
