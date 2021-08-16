@@ -11,3 +11,7 @@ spring:
   sql:
     init:
       data-locations: classpath:data-h2.sql
+api:
+  secret:
+    key:
+

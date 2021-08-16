@@ -9,4 +9,6 @@ public interface LetterRepository extends JpaRepository<Letter, Long> {
   List<Letter> findLettersByEmailOrderByCreatedDateDesc(String email);
 
   Optional<Letter> findLetterByEncryptedId(String encryptedId);
+
+  List<Letter> findLetterByState (State state);
 }
