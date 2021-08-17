@@ -69,4 +69,10 @@ public class Letter extends BaseEntity {
   private String encodeContents(String contents) {
     return encodeBase64String(contents.getBytes());
   }
+
+  public void updateLetterState() {
+    if (this.state == State.SEND) {
+      this.state = State.DISPLAYED;
+    }
+  }
 }

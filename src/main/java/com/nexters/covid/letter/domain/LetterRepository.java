@@ -10,5 +10,5 @@ public interface LetterRepository extends JpaRepository<Letter, Long> {
 
   Optional<Letter> findLetterByEncryptedId(String encryptedId);
 
-  List<Letter> findLetterByState (State state);
+  List<Letter> findLetterByState(State state);
 }

@@ -57,7 +57,8 @@ public class LetterService {
 
   @Transactional(readOnly = true)
   public List<QuestionResponse> findQuestionsByOptionId(Long optionId) {
-    return questionRepository.findQuestionsBySendOptionIdEqualsOrSendOptionIdEquals(optionId, Constant.COMMON_SEND_OPTION_ID)
+    return questionRepository.findQuestionsBySendOptionIdEqualsOrSendOptionIdEquals(optionId,
+        Constant.COMMON_SEND_OPTION_ID)
         .stream()
         .map(QuestionResponse::new)
         .collect(Collectors.toList());
@@ -81,5 +82,15 @@ public class LetterService {
     Question question = questionRepository.findQuestionById(letter.getQuestionId());
 
     return new LetterResponse(letter, question);
+  }
+
+  @Transactional
+  public LetterResponse updateLetterState(String encryptedId) {
+    Letter letter = letterRepository.findLetterByEncryptedId(encryptedId)
+        .map(l -> {
+          l.updateLetterState();
+          return l;
+        }).orElseThrow(() -> new IllegalArgumentException("해당 ID의 편지가 없습니다."));
+    return new LetterResponse(letter);
   }
 }
