@@ -1,17 +1,17 @@
 insert into user (email, identifier, name) values ('email', 'identifier', 'name');
 insert into user (email, identifier, name) values ('test@gmail.com', '1', '김아무개');
 
-insert into letter (contents, encrypted_id, letter_to, email, sticker, question_id, state, title, user_id, created_date)
-values ('64K07Jqp7JqU7Jqp7Jqp7Jqp', 'ENCRYPTED', 'LETTER_TO', 'email', 'HAPPY', 1 , 'PENDING', 'TITLE', 1, '2021-08-11T12:09:59.342635');
-insert into letter (contents, encrypted_id, letter_to, email, sticker, question_id, state, title, user_id, created_date)
-values ('64K07Jqp7JqU7Jqp7Jqp7Jqp', 'ENCRYPTED1', 'LETTER_TO1', 'email', 'BLUE', 2, 'PENDING', 'TITLE1', 1, '2021-08-09T12:09:59.342635');
-insert into letter (contents, encrypted_id, letter_to, email, sticker, question_id, state, title, user_id, created_date)
-values ('64K07Jqp7JqU7Jqp7Jqp7Jqp', 'ENCRYPTED1', 'LETTER_TO1', 'email', 'BLUE', 8, 'PENDING', 'TITLE1', 1, '2021-08-04T12:09:59.342635');
+insert into letter (contents, encrypted_id, letter_to, email, sticker, question_id, send_option_id, state, title, user_id, created_date)
+values ('64K07Jqp7JqU7Jqp7Jqp7Jqp', 'ENCRYPTED', 'LETTER_TO', 'email', 'HAPPY', 1 , 1,  'PENDING', 'TITLE', 1, '2021-08-11T12:09:59.342635');
+insert into letter (contents, encrypted_id, letter_to, email, sticker, question_id, send_option_id, state, title, user_id, created_date)
+values ('64K07Jqp7JqU7Jqp7Jqp7Jqp', 'ENCRYPTED1', 'LETTER_TO1', 'email', 'BLUE', 2, 1, 'PENDING', 'TITLE1', 1, '2021-08-09T12:09:59.342635');
+insert into letter (contents, encrypted_id, letter_to, email, sticker, question_id, send_option_id, state, title, user_id, created_date)
+values ('64K07Jqp7JqU7Jqp7Jqp7Jqp', 'ENCRYPTED2', 'LETTER_TO1', 'email', 'BLUE', 8, 2, 'PENDING', 'TITLE1', 1, '2021-08-04T12:09:59.342635');
 
-insert into letter (contents, encrypted_id, letter_to, email, sticker, question_id, state, title, user_id)
-values ('CONTENTS2', 'ENCRYPTED2', 'LETTER_TO2', 'test@gmail.com', 'BLUE', 2, 'PENDING', 'TITLE2', 2);
-insert into letter (contents, encrypted_id, letter_to, email, sticker, question_id, state, title, user_id)
-values ('CONTENTS3', 'ENCRYPTED3', 'LETTER_TO3', 'test@gmail.com', 'BLUE', 2, 'PENDING', 'TITLE3', 2);
+insert into letter (contents, encrypted_id, letter_to, email, sticker, question_id, send_option_id, state, title, user_id)
+values ('CONTENTS2', 'ENCRYPTED2', 'LETTER_TO2', 'test@gmail.com', 'BLUE', 2, 7, 'PENDING', 'TITLE2', 2);
+insert into letter (contents, encrypted_id, letter_to, email, sticker, question_id, send_option_id, state, title, user_id)
+values ('CONTENTS3', 'ENCRYPTED3', 'LETTER_TO3', 'test@gmail.com', 'BLUE', 2, 7, 'PENDING', 'TITLE3', 2);
 
 -- 발송 옵션
 insert into send_option (text, covid_stat) values ('실내에서 마스크를 벗을 수 있을 때', 1000);
@@ -20,6 +20,7 @@ insert into send_option (text, covid_stat) values ('하루 확진자 수 100명 
 insert into send_option (text, covid_stat) values ('백신 접종율이 50% 이상일 때', 0);
 insert into send_option (text, covid_stat) values ('코로나 종식 선언할 때', 0);
 insert into send_option (text, covid_stat) values ('공통 질문', 0);
+insert into send_option (text, covid_stat) values ('미선택', 0);
 
 -- 1. 질문 실내에서 마스크를 벗을 수 있을 때
 insert into question (text, send_option_id) values ('코로나가 끝나면 누구와 어떤 공간을 가장 가고 싶나요?', 1);

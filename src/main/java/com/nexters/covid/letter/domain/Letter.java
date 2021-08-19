@@ -48,6 +48,8 @@ public class Letter extends BaseEntity {
 
   private Long questionId;
 
+  private Long sendOptionId;
+
   private String encryptedId;
 
   public Letter(LetterRequest request, User user) {
@@ -59,6 +61,7 @@ public class Letter extends BaseEntity {
     this.state = State.PENDING;
     this.sticker = request.getSticker();
     this.questionId = request.getQuestionId();
+    this.sendOptionId = request.getSendOptionId();
     this.encryptedId = generateEncryptedId();
   }
 

@@ -32,18 +32,13 @@ public class LetterService {
   public List<LetterResponse> findLettersByEmail(String email) {
     return letterRepository.findLettersByEmailOrderByCreatedDateDesc(email)
         .stream()
-        .map(l -> new LetterResponse(l, findSendOptionByQuestionId(l.getQuestionId())))
+        .map(l -> new LetterResponse(l, findSendOptionById(l.getSendOptionId())))
         .collect(Collectors.toList());
   }
 
   @Transactional(readOnly = true)
-  public String findSendOptionByQuestionId(Long questionId) {
-    List<SendOption> options = sendOptionRepository.findAllJoinFetch();
-
-    return options.stream()
-        .filter(o -> o.isMatchQuestion(questionId))
-        .map(SendOption::getText)
-        .findAny()
+  public SendOption findSendOptionById(Long sendOptionId) {
+    return sendOptionRepository.findSendOptionById(sendOptionId)
         .orElseThrow(() -> new IllegalArgumentException("발송 옵션이 존재하지 않습니다."));
   }
 

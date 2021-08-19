@@ -7,6 +7,7 @@ import com.nexters.covid.letter.domain.Letter;
 import com.nexters.covid.letter.domain.State;
 import com.nexters.covid.letter.domain.Sticker;
 import com.nexters.covid.letter.domain.question.Question;
+import com.nexters.covid.letter.domain.sendoption.SendOption;
 import java.time.LocalDateTime;
 import lombok.Getter;
 import lombok.Setter;
@@ -40,9 +41,9 @@ public class LetterResponse {
     this.contents = decodeContents(source.getContents());
   }
 
-  public LetterResponse(Letter source, String sendOptionText) {
+  public LetterResponse(Letter source, SendOption option) {
     this(source);
-    this.sendOptionText = sendOptionText;
+    this.sendOptionText = option.getText();
   }
 
   public LetterResponse(Letter source, Question question) {
