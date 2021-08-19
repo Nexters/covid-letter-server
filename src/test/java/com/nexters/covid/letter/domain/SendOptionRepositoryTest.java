@@ -21,6 +21,6 @@ public class SendOptionRepositoryTest {
   void fetchJoinTest() {
     List<SendOption> options = sendOptionRepository.findAllJoinFetch();
 
-    assertThat(options.size()).isEqualTo(8);
+    assertThat(options.size()).isEqualTo(47);
   }
 }
