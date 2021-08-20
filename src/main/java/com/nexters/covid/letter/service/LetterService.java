@@ -88,4 +88,5 @@ public class LetterService {
         }).orElseThrow(() -> new IllegalArgumentException("해당 ID의 편지가 없습니다."));
     return new LetterResponse(letter);
   }
+
 }

@@ -1,12 +1,12 @@
 insert into user (email, identifier, name) values ('email', 'identifier', 'name');
-insert into user (email, identifier, name) values ('test@gmail.com', '1', '김아무개');
+insert into user (email, identifier, name) values ('6230dev@gmail.com', '1', '김아무개');
 
 insert into letter (contents, encrypted_id, letter_to, email, sticker, question_id, send_option_id, state, title, user_id, created_date)
-values ('64K07Jqp7JqU7Jqp7Jqp7Jqp', 'ENCRYPTED', 'LETTER_TO', 'email', 'HAPPY', 1 , 1,  'PENDING', 'TITLE', 1, '2021-08-11T12:09:59.342635');
+values ('64K07Jqp7JqU7Jqp7Jqp7Jqp', 'ENCRYPTED', 'n081623@naver.com', '6230dev@gmail.com', 'HAPPY', 1 , 1,  'PENDING', 'TITLE', 1, '2021-08-11T12:09:59.342635');
 insert into letter (contents, encrypted_id, letter_to, email, sticker, question_id, send_option_id, state, title, user_id, created_date)
-values ('64K07Jqp7JqU7Jqp7Jqp7Jqp', 'ENCRYPTED1', 'LETTER_TO1', 'email', 'BLUE', 2, 1, 'PENDING', 'TITLE1', 1, '2021-08-09T12:09:59.342635');
+values ('64K07Jqp7JqU7Jqp7Jqp7Jqp', 'ENCRYPTED1', 'n081623@naver.com', '6230dev@gmail.com', 'BLUE', 2, 1, 'PENDING', 'TITLE1', 1, '2021-08-09T12:09:59.342635');
 insert into letter (contents, encrypted_id, letter_to, email, sticker, question_id, send_option_id, state, title, user_id, created_date)
-values ('64K07Jqp7JqU7Jqp7Jqp7Jqp', 'ENCRYPTED2', 'LETTER_TO1', 'email', 'BLUE', 8, 2, 'PENDING', 'TITLE1', 1, '2021-08-04T12:09:59.342635');
+values ('64K07Jqp7JqU7Jqp7Jqp7Jqp', 'ENCRYPTED2', 'n081623@naver.com', '6230dev@gmail.com', 'BLUE', 8, 2, 'PENDING', 'TITLE1', 1, '2021-08-04T12:09:59.342635');
 
 insert into letter (contents, encrypted_id, letter_to, email, sticker, question_id, send_option_id, state, title, user_id)
 values ('CONTENTS2', 'ENCRYPTED2', 'LETTER_TO2', 'test@gmail.com', 'BLUE', 2, 7, 'PENDING', 'TITLE2', 2);

@@ -1,5 +1,6 @@
 package com.nexters.covid.letter.domain;
 
+import static org.apache.commons.codec.binary.Base64.decodeBase64;
 import static org.apache.commons.codec.binary.Base64.encodeBase64String;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -77,5 +78,9 @@ public class Letter extends BaseEntity {
     if (this.state == State.SEND) {
       this.state = State.DISPLAYED;
     }
+  }
+
+  public String decodeContents() {
+    return new String(decodeBase64(this.contents));
   }
 }
