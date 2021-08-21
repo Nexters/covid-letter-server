@@ -1,6 +1,5 @@
 package com.nexters.covid.stat.domain;
 
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 

@@ -1,5 +1,6 @@
 package com.nexters.covid.stat.api;
 
+import com.nexters.covid.base.BaseResponse;
 import com.nexters.covid.stat.api.dto.CovidStatResponse;
 import com.nexters.covid.stat.domain.CovidStat;
 import com.nexters.covid.stat.service.CovidStatService;
@@ -17,26 +18,27 @@ import java.util.List;
 @RestController
 @RequestMapping(value = "/covidstat")
 @RequiredArgsConstructor
-@CrossOrigin("*")
 public class CovidStatController {
 
-    private final CovidStatService covidStatService;
+  private final CovidStatService covidStatService;
 
-    @GetMapping("")
-    public ResponseEntity<CovidStatResponse> readTodayStat () throws ParseException, ParserConfigurationException, IOException, SAXException {
-        return ResponseEntity.ok(covidStatService.readTodayStat());
-    }
-
-
-    // 테스트 ----------------------------------------------------------------------------------------------
-    @GetMapping("/covidOnly/{date}")
-    public ResponseEntity<List<CovidStat>> readStats (@PathVariable String date) {
-        System.out.println(date);
-        return ResponseEntity.ok(covidStatService.readStats());
-    }
+  @GetMapping("")
+  public BaseResponse<CovidStatResponse> readTodayStat()
+      throws ParseException, ParserConfigurationException, IOException, SAXException {
+    CovidStatResponse stat = covidStatService.readTodayStat();
+    return new BaseResponse<>(200, 0, "", stat);
+  }
 
 
-    @GetMapping("/letters")
-    public void readLetterStats () {
-    }
+  // 테스트 ----------------------------------------------------------------------------------------------
+  @GetMapping("/covidOnly/{date}")
+  public ResponseEntity<List<CovidStat>> readStats(@PathVariable String date) {
+    System.out.println(date);
+    return ResponseEntity.ok(covidStatService.readStats());
+  }
+
+
+  @GetMapping("/letters")
+  public void readLetterStats() {
+  }
 }

@@ -5,6 +5,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface CovidStatRepository extends JpaRepository<CovidStat, Long> {
-
     CovidStat findByDate(String date);
 }
