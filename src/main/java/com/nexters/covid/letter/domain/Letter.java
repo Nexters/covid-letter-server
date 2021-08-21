@@ -90,4 +90,11 @@ public class Letter extends BaseEntity {
     }
     return sendOptionId;
   }
+
+  public void updateLetterSendOption(Long sendOptionId) {
+    if (this.sendOptionId != 7) {
+      throw new RuntimeException("발송 옵션이 이미 설정되어 있습니다.");
+    }
+    this.sendOptionId = sendOptionId;
+  }
 }

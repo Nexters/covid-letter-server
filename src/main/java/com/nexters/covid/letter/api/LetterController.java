@@ -54,9 +54,15 @@ public class LetterController {
     return new BaseResponse<>(200, 0, "", letter);
   }
 
-  @PutMapping("/letters/{encryptedId}")
+  @PutMapping("/letters/{encryptedId}/state")
   public BaseResponse<LetterResponse> updateLetterState(@PathVariable("encryptedId") String encryptedId) {
     LetterResponse letter = letterService.updateLetterState(encryptedId);
+    return new BaseResponse<>(200, 0, "", letter);
+  }
+
+  @PutMapping("/letters/{encryptedId}")
+  public BaseResponse<LetterResponse> updateLetter(@PathVariable("encryptedId") String encryptedId, @RequestBody LetterRequest letterRequest) {
+    LetterResponse letter = letterService.updateLetter(encryptedId, letterRequest);
     return new BaseResponse<>(200, 0, "", letter);
   }
 }

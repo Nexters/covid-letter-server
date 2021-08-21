@@ -89,4 +89,14 @@ public class LetterService {
     return new LetterResponse(letter);
   }
 
+  @Transactional
+  public LetterResponse updateLetter(String encryptedId, LetterRequest letterRequest) {
+    Letter letter = letterRepository.findLetterByEncryptedId(encryptedId)
+        .map(l -> {
+          l.updateLetterSendOption(letterRequest.getSendOptionId());
+          return l;
+        }).orElseThrow(() -> new IllegalArgumentException("해당 ID의 편지가 없습니다."));
+
+    return new LetterResponse(letter);
+  }
 }
