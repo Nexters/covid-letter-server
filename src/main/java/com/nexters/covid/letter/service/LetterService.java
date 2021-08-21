@@ -29,10 +29,17 @@ public class LetterService {
   private final UserRepository userRepository;
 
   @Transactional(readOnly = true)
-  public List<LetterResponse> findLettersByEmail(String email) {
+  public List<LetterResponse> findLettersByEmail(String email, boolean unposted) {
+    if (unposted) {
+      return letterRepository.findLettersByEmailOrderByCreatedDateDesc(email)
+          .stream()
+          .filter(Letter::unpostedSendOption)
+          .map(LetterResponse::new)
+          .collect(Collectors.toList());
+    }
     return letterRepository.findLettersByEmailOrderByCreatedDateDesc(email)
         .stream()
-        .map(l -> new LetterResponse(l, findSendOptionById(l.getSendOptionId())))
+        .map(LetterResponse::new)
         .collect(Collectors.toList());
   }
 
@@ -63,8 +70,9 @@ public class LetterService {
   public LetterResponse saveLetter(LetterRequest letterRequest) {
     User user = userRepository.findUserByEmail(letterRequest.getEmail())
         .orElseThrow(() -> new RuntimeException("사용자가 없습니다."));
+    SendOption option = findSendOptionById(letterRequest.markLetterSendOptionId());
 
-    Letter letter = letterRepository.save(new Letter(letterRequest, user));
+    Letter letter = letterRepository.save(new Letter(letterRequest, user, option));
 
     return new LetterResponse(letter);
   }
@@ -93,7 +101,7 @@ public class LetterService {
   public LetterResponse updateLetter(String encryptedId, LetterRequest letterRequest) {
     Letter letter = letterRepository.findLetterByEncryptedId(encryptedId)
         .map(l -> {
-          l.updateLetterSendOption(letterRequest.getSendOptionId());
+          l.updateLetterSendOption(findSendOptionById(letterRequest.getSendOptionId()));
           return l;
         }).orElseThrow(() -> new IllegalArgumentException("해당 ID의 편지가 없습니다."));
 

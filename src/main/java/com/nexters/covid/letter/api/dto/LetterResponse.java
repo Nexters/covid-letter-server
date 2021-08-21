@@ -39,11 +39,7 @@ public class LetterResponse {
   public LetterResponse(Letter source) {
     copyProperties(source, this);
     this.contents = decodeContents(source.getContents());
-  }
-
-  public LetterResponse(Letter source, SendOption option) {
-    this(source);
-    this.sendOptionText = option.getText();
+    this.sendOptionText = source.getSendOption().getText();
   }
 
   public LetterResponse(Letter source, Question question) {

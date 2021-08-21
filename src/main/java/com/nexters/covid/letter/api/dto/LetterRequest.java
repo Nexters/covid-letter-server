@@ -19,4 +19,11 @@ public class LetterRequest {
   private Long questionId;
 
   private Long sendOptionId;
+
+  public Long markLetterSendOptionId() {
+    if (sendOptionId == null) {
+      return 7L;
+    }
+    return sendOptionId;
+  }
 }

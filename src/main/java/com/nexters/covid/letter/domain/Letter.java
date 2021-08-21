@@ -6,16 +6,19 @@ import static org.apache.commons.codec.binary.Base64.encodeBase64String;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.nexters.covid.base.BaseEntity;
 import com.nexters.covid.letter.api.dto.LetterRequest;
+import com.nexters.covid.letter.domain.sendoption.SendOption;
 import com.nexters.covid.user.domain.User;
 import java.util.UUID;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -49,11 +52,13 @@ public class Letter extends BaseEntity {
 
   private Long questionId;
 
-  private Long sendOptionId;
+  @OneToOne(fetch = FetchType.EAGER)
+  @JoinColumn(name = "send_option_id")
+  private SendOption sendOption;
 
   private String encryptedId;
 
-  public Letter(LetterRequest request, User user) {
+  public Letter(LetterRequest request, User user, SendOption sendOption) {
     this.user = user;
     this.letterTo = request.getEmail();
     this.title = request.getTitle();
@@ -62,7 +67,7 @@ public class Letter extends BaseEntity {
     this.state = State.PENDING;
     this.sticker = request.getSticker();
     this.questionId = request.getQuestionId();
-    this.sendOptionId = markLetterSendOptionId(request.getSendOptionId());
+    this.sendOption = sendOption;
     this.encryptedId = generateEncryptedId();
   }
 
@@ -84,17 +89,11 @@ public class Letter extends BaseEntity {
     return new String(decodeBase64(this.contents));
   }
 
-  public Long markLetterSendOptionId(Long sendOptionId) {
-    if (sendOptionId == null) {
-      return 7L;
-    }
-    return sendOptionId;
+  public void updateLetterSendOption(SendOption sendOption) {
+    this.sendOption = sendOption;
   }
 
-  public void updateLetterSendOption(Long sendOptionId) {
-    if (this.sendOptionId != 7) {
-      throw new RuntimeException("발송 옵션이 이미 설정되어 있습니다.");
-    }
-    this.sendOptionId = sendOptionId;
+  public boolean unpostedSendOption() {
+    return sendOption.isUnpostedLetter();
   }
 }
