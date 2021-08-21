@@ -53,7 +53,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
           , "/letters/{\\d+}"
           , "/redirect");
       web.ignoring().requestMatchers(PathRequest.toStaticResources().atCommonLocations());
-      web.ignoring().requestMatchers(PathRequest.toH2Console());
   }
 
   @Bean
