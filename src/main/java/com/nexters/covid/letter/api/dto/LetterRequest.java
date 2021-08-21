@@ -12,11 +12,18 @@ public class LetterRequest {
 
   private String contents;
 
-  private String email;
+//  private String letterTo;
 
   private Sticker sticker;
 
   private Long questionId;
 
   private Long sendOptionId;
+
+  public Long markLetterSendOptionId() {
+    if (sendOptionId == null) {
+      return 7L;
+    }
+    return sendOptionId;
+  }
 }

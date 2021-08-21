@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RequiredArgsConstructor
@@ -23,8 +24,9 @@ public class LetterController {
   private final LetterService letterService;
 
   @GetMapping("/letters")
-  public BaseResponse<List<LetterResponse>> findLettersByEmail(Authentication authentication) {
-    List<LetterResponse> letters = letterService.findLettersByEmail(authentication.getName());
+  public BaseResponse<List<LetterResponse>> findLettersByEmail(Authentication authentication,
+      @RequestParam("unposted") boolean unposted) {
+    List<LetterResponse> letters = letterService.findLettersByEmail(authentication.getName(), unposted);
     return new BaseResponse<>(200, 0, "", letters);
   }
 
@@ -42,8 +44,8 @@ public class LetterController {
   }
 
   @PostMapping("/letters")
-  public BaseResponse<LetterResponse> saveLetter(@RequestBody LetterRequest letterRequest) {
-    LetterResponse letter = letterService.saveLetter(letterRequest);
+  public BaseResponse<LetterResponse> saveLetter(@RequestBody LetterRequest letterRequest, Authentication authentication) {
+    LetterResponse letter = letterService.saveLetter(letterRequest, authentication.getName());
     return new BaseResponse<>(200, 0, "", letter);
   }
 
@@ -54,9 +56,17 @@ public class LetterController {
     return new BaseResponse<>(200, 0, "", letter);
   }
 
-  @PutMapping("/letters/{encryptedId}")
-  public BaseResponse<LetterResponse> updateLetterState(@PathVariable("encryptedId") String encryptedId) {
+  @PutMapping("/letters/{encryptedId}/state")
+  public BaseResponse<LetterResponse> updateLetterState(
+      @PathVariable("encryptedId") String encryptedId) {
     LetterResponse letter = letterService.updateLetterState(encryptedId);
+    return new BaseResponse<>(200, 0, "", letter);
+  }
+
+  @PutMapping("/letters/{encryptedId}")
+  public BaseResponse<LetterResponse> updateLetter(@PathVariable("encryptedId") String encryptedId,
+      @RequestBody LetterRequest letterRequest) {
+    LetterResponse letter = letterService.updateLetter(encryptedId, letterRequest);
     return new BaseResponse<>(200, 0, "", letter);
   }
 }

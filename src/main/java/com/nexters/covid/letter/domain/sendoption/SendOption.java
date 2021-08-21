@@ -30,4 +30,8 @@ public class SendOption {
 
   @OneToMany(mappedBy = "sendOption", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
   private final List<Question> questions = new ArrayList<>();
+
+  public boolean isUnpostedLetter() {
+    return id == 7L;
+  }
 }

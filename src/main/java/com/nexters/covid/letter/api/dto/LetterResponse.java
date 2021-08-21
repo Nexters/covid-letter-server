@@ -22,6 +22,8 @@ public class LetterResponse {
 
   private String email;
 
+  private String name;
+
   private State state;
 
   private Sticker sticker;
@@ -39,16 +41,13 @@ public class LetterResponse {
   public LetterResponse(Letter source) {
     copyProperties(source, this);
     this.contents = decodeContents(source.getContents());
-  }
-
-  public LetterResponse(Letter source, SendOption option) {
-    this(source);
-    this.sendOptionText = option.getText();
+    this.sendOptionText = source.getSendOption().getText();
   }
 
   public LetterResponse(Letter source, Question question) {
     this(source);
     this.questionText = question.getText();
+    this.name = source.getUser().getName();
   }
 
   private String decodeContents(String contents) {
