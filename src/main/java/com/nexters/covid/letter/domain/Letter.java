@@ -60,7 +60,7 @@ public class Letter extends BaseEntity {
 
   public Letter(LetterRequest request, User user, SendOption sendOption) {
     this.user = user;
-    this.letterTo = request.getEmail();
+    this.letterTo = user.getEmail();
     this.title = request.getTitle();
     this.contents = encodeContents(request.getContents());
     this.email = user.getEmail();

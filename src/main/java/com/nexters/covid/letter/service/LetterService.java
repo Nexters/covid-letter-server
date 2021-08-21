@@ -67,8 +67,8 @@ public class LetterService {
   }
 
   @Transactional
-  public LetterResponse saveLetter(LetterRequest letterRequest) {
-    User user = userRepository.findUserByEmail(letterRequest.getEmail())
+  public LetterResponse saveLetter(LetterRequest letterRequest, String email) {
+    User user = userRepository.findUserByEmail(email)
         .orElseThrow(() -> new RuntimeException("사용자가 없습니다."));
     SendOption option = findSendOptionById(letterRequest.markLetterSendOptionId());
 

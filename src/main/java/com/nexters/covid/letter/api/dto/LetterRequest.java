@@ -12,7 +12,7 @@ public class LetterRequest {
 
   private String contents;
 
-  private String email;
+//  private String letterTo;
 
   private Sticker sticker;
 

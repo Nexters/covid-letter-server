@@ -44,8 +44,8 @@ public class LetterController {
   }
 
   @PostMapping("/letters")
-  public BaseResponse<LetterResponse> saveLetter(@RequestBody LetterRequest letterRequest) {
-    LetterResponse letter = letterService.saveLetter(letterRequest);
+  public BaseResponse<LetterResponse> saveLetter(@RequestBody LetterRequest letterRequest, Authentication authentication) {
+    LetterResponse letter = letterService.saveLetter(letterRequest, authentication.getName());
     return new BaseResponse<>(200, 0, "", letter);
   }
 
