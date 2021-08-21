@@ -22,6 +22,8 @@ public class LetterResponse {
 
   private String email;
 
+  private String name;
+
   private State state;
 
   private Sticker sticker;
@@ -45,6 +47,7 @@ public class LetterResponse {
   public LetterResponse(Letter source, Question question) {
     this(source);
     this.questionText = question.getText();
+    this.name = source.getUser().getName();
   }
 
   private String decodeContents(String contents) {
