@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -18,7 +19,7 @@ public class UserController {
   private final UserService userService;
 
   @PostMapping("/login")
-  public BaseResponse<LoginResponse> login(LoginRequest loginRequest) {
+  public BaseResponse<LoginResponse> login(@RequestBody LoginRequest loginRequest) {
     LoginResponse user = userService.login(loginRequest);
     return new BaseResponse<>(200, 0, "", user);
   }

@@ -12,6 +12,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RequiredArgsConstructor
@@ -40,7 +42,7 @@ public class LetterController {
   }
 
   @PostMapping("/letters")
-  public BaseResponse<LetterResponse> saveLetter(LetterRequest letterRequest) {
+  public BaseResponse<LetterResponse> saveLetter(@RequestBody LetterRequest letterRequest) {
     LetterResponse letter = letterService.saveLetter(letterRequest);
     return new BaseResponse<>(200, 0, "", letter);
   }
@@ -49,6 +51,12 @@ public class LetterController {
   public BaseResponse<LetterResponse> findLetterByEncryptedId(
       @PathVariable("encryptedId") String encryptedId) {
     LetterResponse letter = letterService.findLetterByEncryptedId(encryptedId);
+    return new BaseResponse<>(200, 0, "", letter);
+  }
+
+  @PutMapping("/letters/{encryptedId}")
+  public BaseResponse<LetterResponse> updateLetterState(@PathVariable("encryptedId") String encryptedId) {
+    LetterResponse letter = letterService.updateLetterState(encryptedId);
     return new BaseResponse<>(200, 0, "", letter);
   }
 }

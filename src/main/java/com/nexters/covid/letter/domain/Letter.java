@@ -1,5 +1,6 @@
 package com.nexters.covid.letter.domain;
 
+import static org.apache.commons.codec.binary.Base64.decodeBase64;
 import static org.apache.commons.codec.binary.Base64.encodeBase64String;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -48,6 +49,8 @@ public class Letter extends BaseEntity {
 
   private Long questionId;
 
+  private Long sendOptionId;
+
   private String encryptedId;
 
   public Letter(LetterRequest request, User user) {
@@ -59,6 +62,7 @@ public class Letter extends BaseEntity {
     this.state = State.PENDING;
     this.sticker = request.getSticker();
     this.questionId = request.getQuestionId();
+    this.sendOptionId = request.getSendOptionId();
     this.encryptedId = generateEncryptedId();
   }
 
@@ -68,5 +72,15 @@ public class Letter extends BaseEntity {
 
   private String encodeContents(String contents) {
     return encodeBase64String(contents.getBytes());
+  }
+
+  public void updateLetterState() {
+    if (this.state == State.SEND) {
+      this.state = State.DISPLAYED;
+    }
+  }
+
+  public String decodeContents() {
+    return new String(decodeBase64(this.contents));
   }
 }

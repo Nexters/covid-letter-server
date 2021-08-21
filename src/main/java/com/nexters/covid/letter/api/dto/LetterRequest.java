@@ -17,4 +17,6 @@ public class LetterRequest {
   private Sticker sticker;
 
   private Long questionId;
+
+  private Long sendOptionId;
 }

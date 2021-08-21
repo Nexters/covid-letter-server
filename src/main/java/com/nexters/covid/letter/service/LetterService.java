@@ -7,6 +7,7 @@ import com.nexters.covid.letter.api.dto.OptionResponse;
 import com.nexters.covid.letter.api.dto.QuestionResponse;
 import com.nexters.covid.letter.domain.Letter;
 import com.nexters.covid.letter.domain.LetterRepository;
+import com.nexters.covid.letter.domain.question.Question;
 import com.nexters.covid.letter.domain.question.QuestionRepository;
 import com.nexters.covid.letter.domain.sendoption.SendOption;
 import com.nexters.covid.letter.domain.sendoption.SendOptionRepository;
@@ -31,18 +32,13 @@ public class LetterService {
   public List<LetterResponse> findLettersByEmail(String email) {
     return letterRepository.findLettersByEmailOrderByCreatedDateDesc(email)
         .stream()
-        .map(l -> new LetterResponse(l, findSendOptionByQuestionId(l.getQuestionId())))
+        .map(l -> new LetterResponse(l, findSendOptionById(l.getSendOptionId())))
         .collect(Collectors.toList());
   }
 
   @Transactional(readOnly = true)
-  public String findSendOptionByQuestionId(Long questionId) {
-    List<SendOption> options = sendOptionRepository.findAllJoinFetch();
-
-    return options.stream()
-        .filter(o -> o.isMatchQuestion(questionId))
-        .map(SendOption::getText)
-        .findAny()
+  public SendOption findSendOptionById(Long sendOptionId) {
+    return sendOptionRepository.findSendOptionById(sendOptionId)
         .orElseThrow(() -> new IllegalArgumentException("발송 옵션이 존재하지 않습니다."));
   }
 
@@ -56,7 +52,8 @@ public class LetterService {
 
   @Transactional(readOnly = true)
   public List<QuestionResponse> findQuestionsByOptionId(Long optionId) {
-    return questionRepository.findQuestionsBySendOptionIdEqualsOrSendOptionIdEquals(optionId, Constant.COMMON_SEND_OPTION_ID)
+    return questionRepository.findQuestionsBySendOptionIdEqualsOrSendOptionIdEquals(optionId,
+        Constant.COMMON_SEND_OPTION_ID)
         .stream()
         .map(QuestionResponse::new)
         .collect(Collectors.toList());
@@ -76,6 +73,20 @@ public class LetterService {
   public LetterResponse findLetterByEncryptedId(String encryptedId) {
     Letter letter = letterRepository.findLetterByEncryptedId(encryptedId)
         .orElseThrow(() -> new IllegalArgumentException("해당 ID의 편지가 없습니다."));
+
+    Question question = questionRepository.findQuestionById(letter.getQuestionId());
+
+    return new LetterResponse(letter, question);
+  }
+
+  @Transactional
+  public LetterResponse updateLetterState(String encryptedId) {
+    Letter letter = letterRepository.findLetterByEncryptedId(encryptedId)
+        .map(l -> {
+          l.updateLetterState();
+          return l;
+        }).orElseThrow(() -> new IllegalArgumentException("해당 ID의 편지가 없습니다."));
     return new LetterResponse(letter);
   }
+
 }
