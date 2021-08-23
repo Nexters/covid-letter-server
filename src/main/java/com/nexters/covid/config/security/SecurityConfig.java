@@ -52,6 +52,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
           , "/login"
           , "/covidstat"
           , "/letters/{\\d+}"
+          , "/letters/{\\d+}/state"
           , "/redirect");
       web.ignoring().requestMatchers(PathRequest.toStaticResources().atCommonLocations());
   }

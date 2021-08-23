@@ -36,18 +36,22 @@ public class LetterResponse {
 
   private String sendOptionText;
 
+  private Long sendOptionId;
+
   private LocalDateTime createdDate;
 
   public LetterResponse(Letter source) {
     copyProperties(source, this);
     this.contents = decodeContents(source.getContents());
     this.sendOptionText = source.getSendOption().getText();
+    this.sendOptionId = source.getSendOption().getId();
+    this.name = source.getUser().getName();
+
   }
 
   public LetterResponse(Letter source, Question question) {
     this(source);
     this.questionText = question.getText();
-    this.name = source.getUser().getName();
   }
 
   private String decodeContents(String contents) {
