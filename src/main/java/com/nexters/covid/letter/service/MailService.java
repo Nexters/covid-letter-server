@@ -1,9 +1,12 @@
 package com.nexters.covid.letter.service;
 
+import com.nexters.covid.base.Constant;
 import com.nexters.covid.letter.domain.Letter;
 import com.nexters.covid.letter.domain.LetterRepository;
 import com.nexters.covid.letter.domain.State;
 import java.io.UnsupportedEncodingException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
@@ -39,13 +42,19 @@ public class MailService {
       sb.append(letter.decodeContents());
       sb.append("</div></span></body></html>");
 
-      msgHelper.setFrom(letter.getEmail(), "nana");
+      msgHelper.setFrom(letter.getEmail(), "안녕, 나야");
       msgHelper.setTo(letter.getLetterTo());
-      msgHelper.setSubject(letter.getTitle());
+      msgHelper.setSubject(generateLetterTitle(letter.getCreatedDate()));
       msgHelper.setText(sb.toString(), true);
 
       javaMailSender.send(msg);
       letterRepository.updateLetterState(letter.getEncryptedId());
     }
+  }
+
+  private String generateLetterTitle(LocalDateTime createdDate) {
+    String letterTitle = createdDate.format(DateTimeFormatter.ofPattern(
+        Constant.LETTER_TITLE_FORMAT));
+    return letterTitle;
   }
 }
