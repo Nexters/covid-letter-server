@@ -11,14 +11,20 @@ import lombok.Setter;
 public class UserResponse {
 
   private Long id;
+
   private String email;
+
   private String name;
-  private int lettersCount;
+
+  private int totalLettersCount;
+
+  private int unpostedLettersCount;
 
   protected UserResponse() {}
 
-  public UserResponse(User source, int count) {
+  public UserResponse(User source, int totalLettersCount, int unpostedLettersCount) {
     copyProperties(source, this);
-    this.lettersCount = count;
+    this.totalLettersCount = totalLettersCount;
+    this.unpostedLettersCount = unpostedLettersCount;
   }
 }

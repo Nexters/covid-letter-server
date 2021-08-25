@@ -48,6 +48,10 @@ public class UserService {
         .orElseThrow(() -> new RuntimeException("사용자가 없습니다."));
     List<Letter> letters = letterRepository.findLettersByEmailOrderByCreatedDateDesc(email);
 
-    return new UserResponse(user, letters.size());
+    int unpostedLettersCount = (int) letters.stream()
+        .filter(Letter::unpostedSendOption)
+        .count();
+
+    return new UserResponse(user, letters.size(), unpostedLettersCount);
   }
 }
