@@ -160,15 +160,20 @@ public class CovidStatService {
     JSONObject jsonObjectVaccinated = (JSONObject) jsonParser.parse(resultVaccinated);
     JSONArray jsonArrayVaccinated = (JSONArray) jsonObjectVaccinated.get("data");
     JSONObject vaccinatedJson = (JSONObject) jsonArrayVaccinated.get(0);
+    String todayVaccinated = String.format("%.1f", (Long) vaccinatedJson.get("totalSecondCnt") / 51353920.0 * 100);
+    String yesVaccinated = String.format("%.1f",
+            ((Long)vaccinatedJson.get("totalSecondCnt")-(Long) vaccinatedJson.get("accumulatedSecondCnt")) / 51353920.0 * 100);
 
     // DB에 저장할 Object ------------------------------------------------------------------------------------------------
-    CovidStat todayStat = new CovidStat();
+    if(covidStatRepository.findByDate(dateFormatVaccinated.format(today)) == null){
+      CovidStat todayStat = new CovidStat();
 
-    todayStat.setDate(dateFormatVaccinated.format(today));
-    todayStat.setConfirmed(resultConfirmedToday);
-    todayStat.setCured(resultCuredToday);
-    todayStat.setVaccinated(Long.toString((Long) vaccinatedJson.get("totalSecondCnt")));
-    covidStatRepository.save(todayStat);
+      todayStat.setDate(dateFormatVaccinated.format(today));
+      todayStat.setConfirmed(resultConfirmedToday);
+      todayStat.setCured(resultCuredToday);
+      todayStat.setVaccinated(todayVaccinated);
+      covidStatRepository.save(todayStat);
+    }
 
     // Response Object ------------------------------------------------------------------------------------------------
     int confirmedCal =
@@ -176,11 +181,8 @@ public class CovidStatService {
     int curedCal = Integer.parseInt(resultCuredToday) - Integer.parseInt(resultCuredYes);
 
     covidStatResponse.setDate(dateFormatVaccinated.format(today));
-    covidStatResponse.setVaccinated(Long.toString((Long) vaccinatedJson.get("totalSecondCnt")));
-    covidStatResponse.setVaccinatedPer(
-        Long.toString((Long) vaccinatedJson.get("totalSecondCnt") - (Long) vaccinatedJson
-            .get("accumulatedSecondCnt"))
-    );
+    covidStatResponse.setVaccinated(todayVaccinated);
+    covidStatResponse.setVaccinatedPer(yesVaccinated);
     covidStatResponse.setConfirmed(resultConfirmedToday);
     covidStatResponse.setConfirmedPer(confirmedCal + "");
     covidStatResponse.setCured(resultCuredToday);
