@@ -16,15 +16,12 @@ public class UserResponse {
 
   private String name;
 
-  private int totalLettersCount;
-
-  private int unpostedLettersCount;
+  private int lettersCount;
 
   protected UserResponse() {}
 
-  public UserResponse(User source, int totalLettersCount, int unpostedLettersCount) {
+  public UserResponse(User source, int count) {
     copyProperties(source, this);
-    this.totalLettersCount = totalLettersCount;
-    this.unpostedLettersCount = unpostedLettersCount;
+    this.lettersCount = count;
   }
 }
