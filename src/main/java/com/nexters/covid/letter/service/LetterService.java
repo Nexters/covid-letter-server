@@ -53,6 +53,7 @@ public class LetterService {
   public List<OptionResponse> findAllOptions() {
     return sendOptionRepository.findAll()
         .stream()
+        .filter(o -> !o.isUnpostedAndCommonOption())
         .map(OptionResponse::new)
         .collect(Collectors.toList());
   }

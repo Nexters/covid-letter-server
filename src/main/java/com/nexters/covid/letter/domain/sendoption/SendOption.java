@@ -34,4 +34,8 @@ public class SendOption {
   public boolean isUnpostedLetter() {
     return id == 7L;
   }
+
+  public boolean isUnpostedAndCommonOption() {
+    return (id == 6L || id == 7L);
+  }
 }
