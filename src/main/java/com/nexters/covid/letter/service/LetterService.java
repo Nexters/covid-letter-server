@@ -82,8 +82,11 @@ public class LetterService {
     Letter letter = letterRepository.findLetterByEncryptedId(encryptedId)
         .orElseThrow(() -> new IllegalArgumentException("해당 ID의 편지가 없습니다."));
 
-    Question question = questionRepository.findQuestionById(letter.getQuestionId());
+    if (letter.isFreeQuestion()) {
+      return new LetterResponse(letter);
+    }
 
+    Question question = questionRepository.findQuestionById(letter.getQuestionId());
     return new LetterResponse(letter, question);
   }
 

@@ -96,4 +96,8 @@ public class Letter extends BaseEntity {
   public boolean unpostedSendOption() {
     return sendOption.isUnpostedLetter();
   }
+
+  public boolean isFreeQuestion() {
+    return questionId == null;
+  }
 }
