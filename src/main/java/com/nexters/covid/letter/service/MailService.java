@@ -5,10 +5,8 @@ import com.nexters.covid.base.LetterText;
 import com.nexters.covid.letter.domain.Letter;
 import com.nexters.covid.letter.domain.LetterRepository;
 import com.nexters.covid.letter.domain.State;
-import java.io.UnsupportedEncodingException;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import lombok.RequiredArgsConstructor;
@@ -18,12 +16,13 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-@RequiredArgsConstructor
 @Service
+@RequiredArgsConstructor
 public class MailService {
 
   private final JavaMailSender javaMailSender;
   private final LetterRepository letterRepository;
+  private final MailAsyncService mailAsyncService;
 
   @Value("${prefix.letter.url}")
   private String letterUrl;
@@ -38,25 +37,14 @@ public class MailService {
 
   @Transactional
   public void sendLetters(Long sendOptionId)
-      throws MessagingException, UnsupportedEncodingException {
+      throws MessagingException {
     List<Letter> letters = findLettersByOptionIdAndState(sendOptionId);
     MimeMessage msg = javaMailSender.createMimeMessage();
     MimeMessageHelper msgHelper = new MimeMessageHelper(msg, true, "UTF-8");
     LetterText text = new LetterText(letterUrl, stickerUrl);
 
     for (Letter letter : letters) {
-      msgHelper.setFrom(letter.getEmail(), "안녕, 나야");
-      msgHelper.setTo(letter.getLetterTo());
-      msgHelper.setSubject(generateLetterTitle(letter.getCreatedDate()));
-      msgHelper.setText(text.generateLetterBody(letter), true);
-
-      javaMailSender.send(msg);
-      letterRepository.updateLetterState(letter.getEncryptedId());
+      mailAsyncService.sendLetter(javaMailSender, msg, msgHelper, letter, text);
     }
-  }
-
-  private String generateLetterTitle(LocalDateTime createdDate) {
-    return createdDate.format(DateTimeFormatter.ofPattern(
-        Constant.LETTER_TITLE_FORMAT));
   }
 }
