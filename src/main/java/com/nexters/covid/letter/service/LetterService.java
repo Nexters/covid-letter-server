@@ -39,6 +39,7 @@ public class LetterService {
     }
     return letterRepository.findLettersByEmailOrderByCreatedDateDesc(email)
         .stream()
+        .filter(l -> !l.unpostedSendOption())
         .map(LetterResponse::new)
         .collect(Collectors.toList());
   }
