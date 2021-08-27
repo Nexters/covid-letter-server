@@ -41,7 +41,7 @@ public class LetterText {
         + "                                <img src=\"");
     sb.append(stickerUrl(letter.getSticker()) + "\" style=\"margin-bottom: 16px;\" />\n"
         + "                                <div style=\"font-weight: 200;font-size: 20px;line-height: 32px;color: #22211F; padding: 0 0 32px;\">\n"
-        + "                                    안녕,나야.\n"
+        + "                                    안녕, 나야.\n"
         + "                                    <br />\n"
         + "                                    오랜만이지?\n"
         + "                                </div>\n"
@@ -93,12 +93,12 @@ public class LetterText {
         + "                                <a href=\"");
     sb.append(directLetterUrl(letter.getEncryptedId())
         + "\" target=\"__blank\" style=\"font-weight: bold; font-size: 16px; line-height: 22px;padding: 16px 0; border-radius: 4px;width: 100%; display: block; text-decoration: none; background: #11373E; color: #fff; border: 0;\">편지보러가기</a>\n"
-        + "                                <a href=\"https://halo-its.me\" target=\"__blank\" style=\"font-weight: bold; font-size: 16px; line-height: 22px;padding: 16px 0; border-radius: 4px;width: 100%;display: block; text-decoration: none; margin-top: 16px; border: 2px solid #11373E; background-color: transparent; color: #11373E; box-sizing: border-box;\">안녕,나야 둘러보기</a>\n"
+        + "                                <a href=\"https://halo-its.me\" target=\"__blank\" style=\"font-weight: bold; font-size: 16px; line-height: 22px;padding: 16px 0; border-radius: 4px;width: 100%;display: block; text-decoration: none; margin-top: 16px; border: 2px solid #11373E; background-color: transparent; color: #11373E; box-sizing: border-box;\">안녕, 나야 둘러보기</a>\n"
         + "                            </td>\n"
         + "                        </tr>\n"
         + "                        <tr>\n"
         + "                            <td style=\"text-align: center; font-weight: 300; font-size: 12px; line-height: 19px; color: #333333;\">\n"
-        + "                                2021 안녕. 나야., All Rights Reserved.\n"
+        + "                                2021 안녕, 나야. All Rights Reserved.\n"
         + "                            </td>\n"
         + "                        </tr>\n"
         + "                    </tbody>\n"
