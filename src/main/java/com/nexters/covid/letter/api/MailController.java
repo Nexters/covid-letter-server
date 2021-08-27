@@ -3,7 +3,6 @@ package com.nexters.covid.letter.api;
 import com.nexters.covid.base.BaseResponse;
 import com.nexters.covid.letter.service.MailService;
 import java.io.UnsupportedEncodingException;
-import java.util.concurrent.ExecutionException;
 import javax.mail.MessagingException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,7 +17,7 @@ public class MailController {
 
   @GetMapping("/mail/{sendOptionId}")
   public BaseResponse<?> sendLetters(@PathVariable("sendOptionId") Long sendOptionId)
-      throws MessagingException, ExecutionException, InterruptedException {
+      throws MessagingException, UnsupportedEncodingException {
     mailService.sendLetters(sendOptionId);
     return new BaseResponse<>(200, 0, "", null);
   }
