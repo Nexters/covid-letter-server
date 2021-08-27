@@ -25,4 +25,8 @@ public interface LetterRepository extends JpaRepository<Letter, Long> {
   @Modifying
   @Query("UPDATE Letter l set l.state = 'SEND' WHERE l.encryptedId = :encryptedId")
   int updateLetterState(@Param("encryptedId") String encryptedId);
+
+  long count();
+
+  long countAllByState(State state);
 }
